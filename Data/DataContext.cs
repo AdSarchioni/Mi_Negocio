@@ -9,6 +9,7 @@ namespace Mi_Negocio.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         public DbSet<Producto> Productos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
         
     }
 }

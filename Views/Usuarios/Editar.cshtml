@@ -1,0 +1,89 @@
+@model Mi_Negocio.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form   method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Apellido">Apellido</label>
+        <input type="text" class="form-control" id="Apellido" name="Apellido" value="@Model.Apellido" />
+        @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })   
+    </div>
+<div>
+    <input asp-for="Id_Usuario" type="hidden" />
+
+</div>
+    <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Model.Nombre" />
+        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="Dni">DNI</label>
+        <input type="text" class="form-control" id="Dni" name="Dni" value="@Model.Dni" />
+        @Html.ValidationMessageFor(model => model.Dni, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="Telefono">Teléfono</label>
+        <input type="text" class="form-control" id="Telefono" name="Telefono" value="@Model.Telefono" />
+        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" />
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="Password" name="Password" value="@Model.Password" />
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="AvatarFile">Avatar</label>
+        <input type="file" class="form-control" id="AvatarFile" name="AvatarFile" />
+        @Html.ValidationMessageFor(model => model.AvatarFile, "", new { @class = "text-danger" })
+    </div>
+ <div class="form-group">
+        <label>Avatar Actual</label><br />
+        @if (!string.IsNullOrEmpty(Model.Avatar))
+        {
+            <img src="@Url.Content($"~{Model.Avatar}")" alt="Avatar actual" width="150" class="mb-3" /><br />
+            <input type="hidden" asp-for="Avatar" />
+        }
+        else
+        {
+            <span>Sin avatar</span>
+        }
+    </div>
+    <div class="form-group">
+        <label for="Rol">Rol</label>
+        <select class="form-control" id="Rol" name="Rol">
+            @foreach (var rol in Mi_Negocio.Models.Usuario.ObtenerRoles())
+            {
+             <option value="@rol.Key" selected="@((rol.Key == Model.Rol) ? "selected" : "")">@rol.Value</option>
+            }
+        </select>
+        @Html.ValidationMessageFor(model => model.Rol, "", new { @class = "text-danger" })
+    </div>
+
+                 <div class="form-group">
+                    <label asp-for="Estado_Usuario" class="control-label">Estado</label>
+                    <select asp-for="Estado_Usuario" class="form-control">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                    <span asp-validation-for="Estado_Usuario" class="text-danger"></span>
+                </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Volver</a>

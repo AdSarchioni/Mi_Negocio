@@ -1,0 +1,55 @@
+
+@model IEnumerable<Mi_Negocio.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+             <th>Imagen</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model)
+        {
+            <tr>
+                <td>@usuario.Id_Usuario</td>
+                <td>@usuario.Apellido</td>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Email</td>
+                <td>@usuario.RolNombre</td>
+                <td>@(usuario.Estado_Usuario == 1 ? "Activo" : "Inactivo")</td>
+    <td>
+                    @if (!string.IsNullOrEmpty(usuario.Avatar))
+                    {
+                        <img src="@Url.Content($"~{usuario.Avatar}")" alt="Imagen del producto" width="100" class="img-thumbnail" />
+                    }
+                    else
+                    {
+                        <span>Sin imagen</span>
+                    }
+                </td>
+
+                <td>
+                    <a href="@Url.Action("Editar", new { id = usuario.Id_Usuario })" class="btn btn-primary">Editar</a>
+                    <form method="post" action="@Url.Action("Eliminar", new { id = usuario.Id_Usuario })" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Crear")" class="btn btn-success">Crear Usuario</a>

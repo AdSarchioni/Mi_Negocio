@@ -17,7 +17,8 @@ builder.Services.AddDbContext<DataContext>(options =>
     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 // Registra el repositorio de productos
-builder.Services.AddScoped<RepositorioProductos>(); // Esto es clave
+ builder.Services.AddScoped<RepositorioProductos>(); // Esto es clave
+ builder.Services.AddScoped<RepositorioUsuarios>();
 
 builder.Services.AddControllers();  
 

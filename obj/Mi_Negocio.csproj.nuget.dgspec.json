@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adsar\\Desktop\\Mi_Negocio\\Mi_Negocio.csproj": {}
+    "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\Mi_Negocio.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adsar\\Desktop\\Mi_Negocio\\Mi_Negocio.csproj": {
+    "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\Mi_Negocio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adsar\\Desktop\\Mi_Negocio\\Mi_Negocio.csproj",
+        "projectUniqueName": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\Mi_Negocio.csproj",
         "projectName": "Mi_Negocio",
-        "projectPath": "C:\\Users\\adsar\\Desktop\\Mi_Negocio\\Mi_Negocio.csproj",
+        "projectPath": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\Mi_Negocio.csproj",
         "packagesPath": "C:\\Users\\adsar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adsar\\Desktop\\Mi_Negocio\\obj\\",
+        "outputPath": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\adsar\\AppData\\Roaming\\NuGet\\NuGet.Config"

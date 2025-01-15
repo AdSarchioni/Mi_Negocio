@@ -13,7 +13,7 @@ namespace Mi_Negocio.Models;
 
     public class Usuario
    {
-
+[Key]
     public int Id_Usuario { get; set; }
 
  [Required(ErrorMessage = "El apellido es obligatorio.")]
