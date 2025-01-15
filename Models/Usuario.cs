@@ -31,7 +31,7 @@ namespace Mi_Negocio.Models;
     [Required(ErrorMessage = "El email es obligatorio.")]
     [EmailAddress(ErrorMessage = "El email no tiene un formato válido.")]
     public string? Email { get; set; }
-    [Required(ErrorMessage = "El Password es obligatorio.")]
+   
     public string? Password { get; set; }
 
     public string? Avatar { get; set; }

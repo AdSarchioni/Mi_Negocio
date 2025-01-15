@@ -5,6 +5,7 @@ using Mi_Negocio.Models;
 using Mi_Negocio.Repositorios;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace Mi_Negocio.Controllers
 {
@@ -12,11 +13,13 @@ namespace Mi_Negocio.Controllers
     {
         private readonly RepositorioUsuarios _repositorio;
         private readonly IWebHostEnvironment _environment;
+        private readonly IConfiguration configuration;
 
-        public UsuariosController(RepositorioUsuarios repositorio, IWebHostEnvironment environment)
+        public UsuariosController(RepositorioUsuarios repositorio, IWebHostEnvironment environment, IConfiguration configuration)
         {
             _repositorio = repositorio;
             _environment = environment;
+            this.configuration = configuration;
         }
 
         // Listar usuarios
@@ -33,26 +36,48 @@ namespace Mi_Negocio.Controllers
         }
 
         // Crear usuario - POST
-        [HttpPost]
-        
-        public async Task<IActionResult> Crear(Usuario usuario)
+     [HttpPost]
+public async Task<IActionResult> Crear(Usuario usuario)
+{
+    if (ModelState.IsValid)
+    {
+        try
         {
-            if (ModelState.IsValid)
-            {
-                if (usuario.AvatarFile != null)
-                {
-                    usuario.Avatar = GuardarAvatar(usuario.AvatarFile);
-                }
-                else
-                {
-                    usuario.Avatar = "/avatars/avatar_0.png"; // Avatar predeterminado
-                }
+            // Hashear la contraseña
+            string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: usuario.Password,
+                salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 1000,
+                numBytesRequested: 256 / 8));
 
-                await _repositorio.AgregarUsuarioAsync(usuario);
-                return RedirectToAction(nameof(Index));
+            usuario.Password = hashedPassword;
+
+            // Procesar el avatar
+            if (usuario.AvatarFile != null)
+            {
+                usuario.Avatar = GuardarAvatar(usuario.AvatarFile);
             }
-            return View(usuario);
+            else
+            {
+                usuario.Avatar = "/avatars/avatar_0.png"; // Avatar predeterminado
+            }
+
+            // Guardar el usuario en la base de datos
+            await _repositorio.AgregarUsuarioAsync(usuario);
+
+            return RedirectToAction(nameof(Index));
         }
+        catch (Exception ex)
+        {
+            // Manejar errores
+            ModelState.AddModelError("", "Ocurrió un error al crear el usuario: " + ex.Message);
+        }
+    }
+
+    // Si llega aquí, algo falló
+    return View(usuario);
+}
 
         // Editar usuario - GET
         public async Task<IActionResult> Editar(int id)
@@ -64,13 +89,21 @@ namespace Mi_Negocio.Controllers
         }
 
         // Editar usuario - POST
-     [HttpPost]
+  [HttpPost]
 public async Task<IActionResult> Editar(Usuario usuario)
 {
     if (ModelState.IsValid)
     {
         try
         {
+            // Recuperar el usuario actual desde la base de datos
+            var usuarioExistente = await _repositorio.ObtenerUsuarioPorIdAsync(usuario.Id_Usuario);
+            if (usuarioExistente == null)
+            {
+                ModelState.AddModelError("", "El usuario no existe.");
+                return View(usuario);
+            }
+
             string wwwPath = _environment.WebRootPath;
             string path = Path.Combine(wwwPath, "avatars");
 
@@ -94,9 +127,9 @@ public async Task<IActionResult> Editar(Usuario usuario)
                 }
 
                 // Eliminar el avatar anterior si no es el predeterminado
-                if (!string.IsNullOrEmpty(usuario.Avatar) && usuario.Avatar != "/avatars/default.jpg")
+                if (!string.IsNullOrEmpty(usuarioExistente.Avatar) && usuarioExistente.Avatar != "/avatars/default.jpg")
                 {
-                    string rutaAvatarAnterior = Path.Combine(wwwPath, usuario.Avatar.TrimStart('/'));
+                    string rutaAvatarAnterior = Path.Combine(wwwPath, usuarioExistente.Avatar.TrimStart('/'));
                     if (System.IO.File.Exists(rutaAvatarAnterior))
                     {
                         System.IO.File.Delete(rutaAvatarAnterior);
@@ -105,16 +138,32 @@ public async Task<IActionResult> Editar(Usuario usuario)
                 }
 
                 // Actualizar la propiedad 'Avatar' con la nueva ruta
-                usuario.Avatar = nuevaRutaAvatar;
+                usuarioExistente.Avatar = nuevaRutaAvatar;
             }
-            else
+
+            // Solo actualizar campos no vacíos
+            if (!string.IsNullOrEmpty(usuario.Nombre))
             {
-                // Si no se carga un nuevo avatar, conservar el actual
-                Console.WriteLine("No se cargó un nuevo avatar. Se conserva el existente.");
+                usuarioExistente.Nombre = usuario.Nombre;
+            }
+            if (!string.IsNullOrEmpty(usuario.Email))
+            {
+                usuarioExistente.Email = usuario.Email;
+            }
+            if (!string.IsNullOrEmpty(usuario.Password))
+            {
+                // Hashear la nueva contraseña si se proporciona
+                string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                    password: usuario.Password,
+                    salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
+                    prf: KeyDerivationPrf.HMACSHA1,
+                    iterationCount: 1000,
+                    numBytesRequested: 256 / 8));
+                usuarioExistente.Password = hashedPassword;
             }
 
             // Actualizar el usuario en la base de datos
-            var resultado = _repositorio.EditarUsuario(usuario);
+            var resultado = _repositorio.EditarUsuario(usuarioExistente);
 
             if (resultado) // Verificar si la operación fue exitosa
             {

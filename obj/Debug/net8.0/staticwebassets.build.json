@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bM1k3SGQpiBuSJ9PNHOzx81mXptn2SJVZeqNlCSkWyc=",
+  "Hash": "rkqA02VeNX6NE4hvEvdIklPyOUn8LSTFimAQvGFOmbc=",
   "Source": "Mi_Negocio",
   "BasePath": "_content/Mi_Negocio",
   "Mode": "Default",
@@ -55,12 +55,12 @@
       "OriginalItemSpec": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Mi_Negocio.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\adriansito_hnkwp2ye.png",
+      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\avatar_357a922e-b1dd-4651-aa9b-09fc92f6361f.png",
       "SourceId": "Mi_Negocio",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\",
       "BasePath": "_content/Mi_Negocio",
-      "RelativePath": "avatars/adriansito_hnkwp2ye.png",
+      "RelativePath": "avatars/avatar_357a922e-b1dd-4651-aa9b-09fc92f6361f.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -71,15 +71,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\avatars\\adriansito_hnkwp2ye.png"
+      "OriginalItemSpec": "wwwroot\\avatars\\avatar_357a922e-b1dd-4651-aa9b-09fc92f6361f.png"
     },
     {
-      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\adriansito_luepzsqv.png",
+      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\avatar_5234b37f-36ba-44c6-abd4-864ca3357cf0.png",
       "SourceId": "Mi_Negocio",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\",
       "BasePath": "_content/Mi_Negocio",
-      "RelativePath": "avatars/adriansito_luepzsqv.png",
+      "RelativePath": "avatars/avatar_5234b37f-36ba-44c6-abd4-864ca3357cf0.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,15 +90,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\avatars\\adriansito_luepzsqv.png"
+      "OriginalItemSpec": "wwwroot\\avatars\\avatar_5234b37f-36ba-44c6-abd4-864ca3357cf0.png"
     },
     {
-      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\pepe_4nzvpa20.png",
+      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\avatar_b1a5c28f-295f-4db3-89fd-b29017c8ea3f.png",
       "SourceId": "Mi_Negocio",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\",
       "BasePath": "_content/Mi_Negocio",
-      "RelativePath": "avatars/pepe_4nzvpa20.png",
+      "RelativePath": "avatars/avatar_b1a5c28f-295f-4db3-89fd-b29017c8ea3f.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -109,26 +109,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\avatars\\pepe_4nzvpa20.png"
-    },
-    {
-      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\pepe_daikoc0w.png",
-      "SourceId": "Mi_Negocio",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\",
-      "BasePath": "_content/Mi_Negocio",
-      "RelativePath": "avatars/pepe_daikoc0w.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\avatars\\pepe_daikoc0w.png"
+      "OriginalItemSpec": "wwwroot\\avatars\\avatar_b1a5c28f-295f-4db3-89fd-b29017c8ea3f.png"
     },
     {
       "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\css\\site.css",
