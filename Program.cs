@@ -1,5 +1,6 @@
 
 
+using System.Security.Claims;
 using Mi_Negocio.Data;
 using Mi_Negocio.Repositorios;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,11 @@ builder.Services.AddDbContext<DataContext>(options =>
  builder.Services.AddScoped<RepositorioUsuarios>();
 
 builder.Services.AddControllers();  
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Cliente", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador", "Cliente"));
+    options.AddPolicy("Administrador", policy => policy.RequireRole("Administrador"));
+});
 
 var app = builder.Build();
 

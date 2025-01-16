@@ -6,6 +6,7 @@ using Mi_Negocio.Repositorios;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Claims;
 
 namespace Mi_Negocio.Controllers
 {
@@ -223,5 +224,58 @@ public async Task<IActionResult> Editar(Usuario usuario)
 
             return $"/avatars/{archivoAvatar}";
         }
+
+[HttpPost]
+public async Task<ActionResult> CambioPassword(string PasswordAnterior, string PasswordNueva)
+{
+    var IdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.PrimarySid)?.Value;
+    if (string.IsNullOrEmpty(IdClaim))
+    {
+        ViewBag.Mensaje = "No se pudo obtener el ID del usuario.";
+        return View();
+    }
+
+    RepositorioUsuarios repoUsu = new RepositorioUsuarios();
+
+    // Generar el hash de la contraseña anterior
+    string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+        password: PasswordAnterior,
+        salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
+        prf: KeyDerivationPrf.HMACSHA1,
+        iterationCount: 1000,
+        numBytesRequested: 256 / 8));
+
+    PasswordAnterior = hashed;
+
+    // Verificar si la contraseña anterior coincide
+    var resultado = await repoUsu.EsIgualPasswordAsync(Convert.ToInt32(IdClaim), hashed);
+    string Mensaje;
+
+    if (resultado == 1)
+    {
+        // Generar el hash de la nueva contraseña
+        string PasswordNuevaHash = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            password: PasswordNueva,
+            salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
+            prf: KeyDerivationPrf.HMACSHA1,
+            iterationCount: 1000,
+            numBytesRequested: 256 / 8));
+
+        PasswordNueva = PasswordNuevaHash;
+
+        // Actualizar la contraseña en la base de datos
+        await repoUsu.UpdateClaveAsync(Convert.ToInt32(IdClaim), PasswordNuevaHash);
+
+        Mensaje = "EL CAMBIO SE REALIZÓ CORRECTAMENTE";
+    }
+    else
+    {
+        Mensaje = "PASSWORD INCORRECTA, INTENTE DE NUEVO";
+    }
+
+    ViewBag.Mensaje = Mensaje;
+    return View();
+}
+
     }
 }

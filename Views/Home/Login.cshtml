@@ -1,0 +1,63 @@
+@model Mi_Negocio.Models.LoginView;
+
+@{
+    ViewData["Title"] = "Login";
+    var mensaje= ViewBag.mensaje;
+}
+<style>
+    body {
+        background-image: url('/images/casa-propia.jpeg');
+        background-size: cover;
+        background-position: center;
+    @*background-repeat:no-repeat;*@background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .text-center,
+    p {
+        color: rgb(10, 9, 9);
+        text-align: center;
+        margin-top: revert-layer;
+    }
+</style>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            
+                <div class="card-body">
+                    <h1 class="text-center"><b>Login</b></h1>
+                    <form asp-action="Login" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center mt-2">
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
+                        <br>
+                        <label for="mensaje">@mensaje </label>
+                        </div>
+
+                    
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

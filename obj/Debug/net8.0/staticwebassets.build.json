@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rkqA02VeNX6NE4hvEvdIklPyOUn8LSTFimAQvGFOmbc=",
+  "Hash": "GZffK1qgExpSz5UtrrJ7mDF9nAXbBOq5PWeQQyf72cw=",
   "Source": "Mi_Negocio",
   "BasePath": "_content/Mi_Negocio",
   "Mode": "Default",
@@ -55,25 +55,6 @@
       "OriginalItemSpec": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Mi_Negocio.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\avatar_357a922e-b1dd-4651-aa9b-09fc92f6361f.png",
-      "SourceId": "Mi_Negocio",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\",
-      "BasePath": "_content/Mi_Negocio",
-      "RelativePath": "avatars/avatar_357a922e-b1dd-4651-aa9b-09fc92f6361f.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\avatars\\avatar_357a922e-b1dd-4651-aa9b-09fc92f6361f.png"
-    },
-    {
       "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\avatar_5234b37f-36ba-44c6-abd4-864ca3357cf0.png",
       "SourceId": "Mi_Negocio",
       "SourceType": "Discovered",
@@ -110,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\avatars\\avatar_b1a5c28f-295f-4db3-89fd-b29017c8ea3f.png"
+    },
+    {
+      "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\avatars\\avatar_e8b4432c-bbc0-4893-b735-d025302b3ef6.png",
+      "SourceId": "Mi_Negocio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\",
+      "BasePath": "_content/Mi_Negocio",
+      "RelativePath": "avatars/avatar_e8b4432c-bbc0-4893-b735-d025302b3ef6.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\avatars\\avatar_e8b4432c-bbc0-4893-b735-d025302b3ef6.png"
     },
     {
       "Identity": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\css\\site.css",

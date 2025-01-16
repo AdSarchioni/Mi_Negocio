@@ -15,6 +15,10 @@ namespace Mi_Negocio.Repositorios
             _context = context;
         }
 
+        public RepositorioUsuarios()
+        {
+        }
+
         // Obtener todos los usuarios
         public async Task<List<Usuario>> ObtenerUsuariosAsync()
         {
@@ -89,5 +93,69 @@ namespace Mi_Negocio.Repositorios
                 await _context.SaveChangesAsync();
             }
         }
+
+public Usuario? ObtenerUsuarioLogin(string email, string password)
+{
+
+    {
+        // Buscar el usuario con el email y contraseña proporcionados
+        var usuario = _context.Usuarios
+            .FirstOrDefault(u => u.Email == email && u.Password == password);
+
+        return usuario; // Retornar el usuario encontrado o null si no existe
+    }
+}
+
+
+
+
+public async Task<int> EsIgualPasswordAsync(int id, string password)
+{
+    var res= -1;
+    try
+    {
+        // Verificar si existe un usuario con el ID y contraseña proporcionados
+        var usuario = await _context.Usuarios
+            .FirstOrDefaultAsync(u => u.Id_Usuario == id && u.Password == password);
+
+        // Si el usuario existe, retornar 1; de lo contrario, -1
+        return res = 1 ;
+    }
+    catch
+    {
+        // En caso de error, retornar -1
+        return res;
+    }
+}
+
+
+
+
+
+
+public async Task<int> UpdateClaveAsync(int id, string password)
+{
+    try
+    {
+        var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Id_Usuario == id);
+
+        if (usuario != null)
+        {
+            usuario.Password = password;
+            await _context.SaveChangesAsync();
+            return 1; // Éxito
+        }
+
+        return -1; // Usuario no encontrado
+    }
+    catch
+    {
+        return -1; // Error
+    }
+}
+
+
+
+        
     }
 }
