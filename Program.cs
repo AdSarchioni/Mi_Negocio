@@ -3,6 +3,7 @@
 using System.Security.Claims;
 using Mi_Negocio.Data;
 using Mi_Negocio.Repositorios;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data;
 
@@ -21,7 +22,18 @@ builder.Services.AddDbContext<DataContext>(options =>
  builder.Services.AddScoped<RepositorioProductos>(); // Esto es clave
  builder.Services.AddScoped<RepositorioUsuarios>();
 
-builder.Services.AddControllers();  
+
+// Configura la autenticación y autorización
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Home/Login";
+        options.LogoutPath = "/Home";
+        options.AccessDeniedPath = "/Home";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(5); // Tiempo de expiración
+    });
+
+
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Cliente", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador", "Cliente"));

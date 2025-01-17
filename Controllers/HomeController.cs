@@ -7,8 +7,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 
-namespace Mi_Negocio.Controllers;
-
+namespace Mi_Negocio.Controllers
+{
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -19,6 +19,9 @@ public class HomeController : Controller
         _logger = logger;
         _configuration = configuration;
     }
+
+RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
+
 
     public IActionResult Index()
     {
@@ -44,6 +47,7 @@ public class HomeController : Controller
                         usuariologin = new LoginView();
                     }
                     var Mensaje = "";
+                    
                     RepositorioUsuarios ru = new RepositorioUsuarios();
 
                     // Usamos _configuration para obtener el valor de "Salt"
@@ -97,9 +101,5 @@ public class HomeController : Controller
             return RedirectToAction("Index", "Home");
         }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+}
 }

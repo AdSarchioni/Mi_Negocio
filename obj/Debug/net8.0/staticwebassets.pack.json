@@ -25,6 +25,38 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\auditoria.css",
+      "PackagePath": "staticwebassets\\fondo\\auditoria.css"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\contrato.css",
+      "PackagePath": "staticwebassets\\fondo\\contrato.css"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\inmueble.css",
+      "PackagePath": "staticwebassets\\fondo\\inmueble.css"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\inquilino.css",
+      "PackagePath": "staticwebassets\\fondo\\inquilino.css"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\pago.css",
+      "PackagePath": "staticwebassets\\fondo\\pago.css"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\propietario.css",
+      "PackagePath": "staticwebassets\\fondo\\propietario.css"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\salids.css",
+      "PackagePath": "staticwebassets\\fondo\\salids.css"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\fondo\\tipoInmueble.css",
+      "PackagePath": "staticwebassets\\fondo\\tipoInmueble.css"
+    },
+    {
       "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\imagenes\\desktop.ini",
       "PackagePath": "staticwebassets\\imagenes\\desktop.ini"
     },
@@ -55,6 +87,50 @@
     {
       "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\imagenes\\producto_e7639deb-0a23-4976-925a-4df46b2be75a.png",
       "PackagePath": "staticwebassets\\imagenes\\producto_e7639deb-0a23-4976-925a-4df46b2be75a.png"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\auditoria.jfif",
+      "PackagePath": "staticwebassets\\images\\auditoria.jfif"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\casa-propia.jpeg",
+      "PackagePath": "staticwebassets\\images\\casa-propia.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\casa.jfif",
+      "PackagePath": "staticwebassets\\images\\casa.jfif"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\casamano.jpg",
+      "PackagePath": "staticwebassets\\images\\casamano.jpg"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\contrato.PNG",
+      "PackagePath": "staticwebassets\\images\\contrato.PNG"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\contrato.jfif",
+      "PackagePath": "staticwebassets\\images\\contrato.jfif"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\inicio.jfif",
+      "PackagePath": "staticwebassets\\images\\inicio.jfif"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\inquilino.jfif",
+      "PackagePath": "staticwebassets\\images\\inquilino.jfif"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\llave-casa.jfif",
+      "PackagePath": "staticwebassets\\images\\llave-casa.jfif"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\pago.jpg",
+      "PackagePath": "staticwebassets\\images\\pago.jpg"
+    },
+    {
+      "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\images\\propietarios.PNG",
+      "PackagePath": "staticwebassets\\images\\propietarios.PNG"
     },
     {
       "Id": "C:\\Users\\adsar\\Documents\\GitHub\\Mi_Negocio\\wwwroot\\js\\site.js",
