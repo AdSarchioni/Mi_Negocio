@@ -24,16 +24,16 @@
         @foreach (var usuario in Model)
         {
             <tr>
-                <td>@usuario.Id_Usuario</td>
-                <td>@usuario.Apellido</td>
-                <td>@usuario.Nombre</td>
-                <td>@usuario.Email</td>
-                <td>@usuario.RolNombre</td>
-                <td>@(usuario.Estado_Usuario == 1 ? "Activo" : "Inactivo")</td>
+                <td>@usuario.id_usuario</td>
+                <td>@usuario.apellido</td>
+                <td>@usuario.nombre</td>
+                <td>@usuario.email</td>
+                <td>@usuario.rolnombre</td>
+                <td>@(usuario.estado_usuario == 1 ? "Activo" : "Inactivo")</td>
     <td>
-                    @if (!string.IsNullOrEmpty(usuario.Avatar))
+                    @if (!string.IsNullOrEmpty(usuario.avatar))
                     {
-                        <img src="@Url.Content($"~{usuario.Avatar}")" alt="Imagen del producto" width="100" class="img-thumbnail" />
+                        <img src="@Url.Content($"~{usuario.avatar}")" alt="Imagen del producto" width="100" class="img-thumbnail" />
                     }
                     else
                     {
@@ -42,8 +42,8 @@
                 </td>
 
                 <td>
-                    <a href="@Url.Action("Editar", new { id = usuario.Id_Usuario })" class="btn btn-primary">Editar</a>
-                    <form method="post" action="@Url.Action("Eliminar", new { id = usuario.Id_Usuario })" style="display:inline;">
+                    <a href="@Url.Action("Editar", new { id = usuario.id_usuario })" class="btn btn-primary">Editar</a>
+                    <form method="post" action="@Url.Action("Eliminar", new { id = usuario.id_usuario })" style="display:inline;">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>

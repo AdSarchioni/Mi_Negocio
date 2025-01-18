@@ -46,22 +46,22 @@ public async Task<IActionResult> Crear(Usuario usuario)
         {
             // Hashear la contraseña
             string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: usuario.Password,
+                password: usuario.password,
                 salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 1000,
                 numBytesRequested: 256 / 8));
 
-            usuario.Password = hashedPassword;
+            usuario.password = hashedPassword;
 
             // Procesar el avatar
-            if (usuario.AvatarFile != null)
+            if (usuario.avatarFile != null)
             {
-                usuario.Avatar = GuardarAvatar(usuario.AvatarFile);
+                usuario.avatar = GuardarAvatar(usuario.avatarFile);
             }
             else
             {
-                usuario.Avatar = "/avatars/avatar_0.png"; // Avatar predeterminado
+                usuario.avatar = "/avatars/avatar_0.png"; // Avatar predeterminado
             }
 
             // Guardar el usuario en la base de datos
@@ -98,7 +98,7 @@ public async Task<IActionResult> Editar(Usuario usuario)
         try
         {
             // Recuperar el usuario actual desde la base de datos
-            var usuarioExistente = await _repositorio.ObtenerUsuarioPorIdAsync(usuario.Id_Usuario);
+            var usuarioExistente = await _repositorio.ObtenerUsuarioPorIdAsync(usuario.id_usuario);
             if (usuarioExistente == null)
             {
                 ModelState.AddModelError("", "El usuario no existe.");
@@ -114,23 +114,23 @@ public async Task<IActionResult> Editar(Usuario usuario)
             }
 
             // Procesar el nuevo avatar si se carga uno
-            if (usuario.AvatarFile != null)
+            if (usuario.avatarFile != null)
             {
                 // Generar un nuevo nombre para el avatar
-                string fileName = "avatar_" + Guid.NewGuid().ToString() + Path.GetExtension(usuario.AvatarFile.FileName);
+                string fileName = "avatar_" + Guid.NewGuid().ToString() + Path.GetExtension(usuario.avatarFile.FileName);
                 string fullPath = Path.Combine(path, fileName);
                 string nuevaRutaAvatar = $"/avatars/{fileName}";
 
                 // Guardar el nuevo avatar
                 using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
-                    await usuario.AvatarFile.CopyToAsync(stream);
+                    await usuario.avatarFile.CopyToAsync(stream);
                 }
 
                 // Eliminar el avatar anterior si no es el predeterminado
-                if (!string.IsNullOrEmpty(usuarioExistente.Avatar) && usuarioExistente.Avatar != "/avatars/default.jpg")
+                if (!string.IsNullOrEmpty(usuarioExistente.avatar) && usuarioExistente.avatar != "/avatars/default.jpg")
                 {
-                    string rutaAvatarAnterior = Path.Combine(wwwPath, usuarioExistente.Avatar.TrimStart('/'));
+                    string rutaAvatarAnterior = Path.Combine(wwwPath, usuarioExistente.avatar.TrimStart('/'));
                     if (System.IO.File.Exists(rutaAvatarAnterior))
                     {
                         System.IO.File.Delete(rutaAvatarAnterior);
@@ -139,28 +139,28 @@ public async Task<IActionResult> Editar(Usuario usuario)
                 }
 
                 // Actualizar la propiedad 'Avatar' con la nueva ruta
-                usuarioExistente.Avatar = nuevaRutaAvatar;
+                usuarioExistente.avatar = nuevaRutaAvatar;
             }
 
             // Solo actualizar campos no vacíos
-            if (!string.IsNullOrEmpty(usuario.Nombre))
+            if (!string.IsNullOrEmpty(usuario.nombre))
             {
-                usuarioExistente.Nombre = usuario.Nombre;
+                usuarioExistente.nombre = usuario.nombre;
             }
-            if (!string.IsNullOrEmpty(usuario.Email))
+            if (!string.IsNullOrEmpty(usuario.email))
             {
-                usuarioExistente.Email = usuario.Email;
+                usuarioExistente.email = usuario.email;
             }
-            if (!string.IsNullOrEmpty(usuario.Password))
+            if (!string.IsNullOrEmpty(usuario.password))
             {
                 // Hashear la nueva contraseña si se proporciona
                 string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                    password: usuario.Password,
+                    password: usuario.password,
                     salt: System.Text.Encoding.ASCII.GetBytes(configuration["Salt"]),
                     prf: KeyDerivationPrf.HMACSHA1,
                     iterationCount: 1000,
                     numBytesRequested: 256 / 8));
-                usuarioExistente.Password = hashedPassword;
+                usuarioExistente.password = hashedPassword;
             }
 
             // Actualizar el usuario en la base de datos
@@ -235,7 +235,6 @@ public async Task<ActionResult> CambioPassword(string PasswordAnterior, string P
         return View();
     }
 
-    RepositorioUsuarios repoUsu = new RepositorioUsuarios();
 
     // Generar el hash de la contraseña anterior
     string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -248,7 +247,7 @@ public async Task<ActionResult> CambioPassword(string PasswordAnterior, string P
     PasswordAnterior = hashed;
 
     // Verificar si la contraseña anterior coincide
-    var resultado = await repoUsu.EsIgualPasswordAsync(Convert.ToInt32(IdClaim), hashed);
+    var resultado = await _repositorio.EsIgualPasswordAsync(Convert.ToInt32(IdClaim), hashed);
     string Mensaje;
 
     if (resultado == 1)
@@ -264,7 +263,7 @@ public async Task<ActionResult> CambioPassword(string PasswordAnterior, string P
         PasswordNueva = PasswordNuevaHash;
 
         // Actualizar la contraseña en la base de datos
-        await repoUsu.UpdateClaveAsync(Convert.ToInt32(IdClaim), PasswordNuevaHash);
+        await _repositorio.UpdateClaveAsync(Convert.ToInt32(IdClaim), PasswordNuevaHash);
 
         Mensaje = "EL CAMBIO SE REALIZÓ CORRECTAMENTE";
     }

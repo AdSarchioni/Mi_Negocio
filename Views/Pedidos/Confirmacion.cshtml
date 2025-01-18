@@ -1,0 +1,26 @@
+@model Mi_Negocio.Models.Pedido;
+
+<h2>Pedido Confirmado</h2>
+<p>Gracias por tu compra, @Model.usuario.nombre.</p>
+<p>Total: @Model.Total.ToString("C")</p>
+
+<h3>Detalles del Pedido</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detalle in Model.detalles)
+        {
+            <tr>
+                <td>@detalle.producto</td>
+                <td>@detalle.cantidad</td>
+                <td>@detalle.total.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

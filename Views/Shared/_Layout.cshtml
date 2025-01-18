@@ -64,6 +64,56 @@
   <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                         </li>
+                     <li class="nav-item ms-auto">
+                                <div class="dropdown">
+                   <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @if (User.Identity.IsAuthenticated)
+               {   
+                  var avatar = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserData)?.Value;
+                       string uniqueAvatarUrl = avatar + "?t=" + DateTime.Now.Ticks; // Añadir un timestamp para evitar cache
+        
+                      if (!string.IsNullOrEmpty(avatar))
+                       {
+                       <img src="@uniqueAvatarUrl" alt="Av" class="rounded-circle"
+                          style="width: 30px; height: 30px;" />
+                           }
+                                 else
+                            {
+                           <img src="~/guest.jpg?t=@DateTime.Now.Ticks" alt="Guest" class="rounded-circle"
+                                style="width: 30px; height: 30px;" />
+                              }
+                                   <span class="ml-2">@User.Identity.Name</span>
+                                 }
+                             </a>
+                                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+                                    aria-labelledby="navbarDropdownMenuLink">
+                                    @{
+                                        // Obtener el valor de la Claim PrimarySid
+                                        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.PrimarySid);
+                                        var userId = userIdClaim?.Value;
+                                    }
+                                    <li><a class="list-group-item" asp-area="" asp-controller="Usuario"
+                                            asp-action="Perfil" asp-route-id="@userId" Style="font-color:black">Perfil</a>
+                                    <li><a class="list-group-item" asp-area="" asp-controller="Usuario"
+                                            asp-action="CambioAvatar" asp-route-id="@userId">Cambiar Avatar</a>
+                                    <li><a class="list-group-item" asp-area="" asp-controller="Usuario"
+                                            asp-action="CambioPassword" asp-route-id="@userId">Editar Contraseña</a>
+                                    <li><a class="list-group-item" asp-area="" asp-controller="HOME"
+                                            asp-action="salir" asp-route-id="@userId">SALIR</a>
+                                </ul>
+                            </div>
+                        </li> 
+                        </ul>
+                    </div>
+               }
+                   
+                   
+                   
+                   
+                   
+                   
+                   
                     </ul>
                 </div>
            

@@ -14,35 +14,35 @@ namespace Mi_Negocio.Models;
     public class Usuario
    {
    [Key]
-    public int Id_Usuario { get; set; }
+    public int id_usuario { get; set; }
 
    [Required(ErrorMessage = "El apellido es obligatorio.")]
-    public string? Apellido { get; set; }
+    public string? apellido { get; set; }
 
   [Required(ErrorMessage = "El Nombre es obligatorio.")]
-    public string? Nombre { get; set; }
+    public string? nombre { get; set; }
 
   [Required(ErrorMessage = "El DNI es obligatorio.")]
     [RegularExpression(@"^\d{1,10}$", ErrorMessage = "El DNI debe contener solo números y un máximo de 11 dígitos.")]
-    public int Dni { get; set; }
+    public int dni { get; set; }
 
    [Required(ErrorMessage = "El teléfono es obligatorio.")]
-    public string? Telefono { get; set; }
+    public string? telefono { get; set; }
     [Required(ErrorMessage = "El email es obligatorio.")]
     [EmailAddress(ErrorMessage = "El email no tiene un formato válido.")]
-    public string? Email { get; set; }
+    public string? email { get; set; }
    
-    public string? Password { get; set; }
+    public string? password { get; set; }
 
-    public string? Avatar { get; set; }
+    public string? avatar { get; set; }
 
     [NotMapped]
-    public IFormFile? AvatarFile { get; set; }
+    public IFormFile? avatarFile { get; set; }
     [Required(ErrorMessage = "El estado es obligatorio.")]
-    public int Estado_Usuario { get; set; }
-    public int Rol { get; set; }
+    public int estado_usuario { get; set; }
+    public int rol { get; set; }
     [NotMapped]//Para EF
-    public string RolNombre => Rol > 0 ? ((enRoles)Rol).ToString() : "";
+    public string rolnombre => rol > 0 ? ((enRoles)rol).ToString() : "";
 
     public static IDictionary<int, string> ObtenerRoles()
     {
@@ -56,6 +56,6 @@ namespace Mi_Negocio.Models;
     }
     public override string ToString()
     {
-        return $"{Apellido},{Nombre}-({Id_Usuario})";
+        return $"{apellido},{nombre}-({id_usuario})";
     }
 }

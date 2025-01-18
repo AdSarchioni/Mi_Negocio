@@ -15,9 +15,7 @@ namespace Mi_Negocio.Repositorios
             _context = context;
         }
 
-        public RepositorioUsuarios()
-        {
-        }
+       
 
         // Obtener todos los usuarios
         public async Task<List<Usuario>> ObtenerUsuariosAsync()
@@ -28,7 +26,7 @@ namespace Mi_Negocio.Repositorios
         // Obtener usuario por ID
         public async Task<Usuario> ObtenerUsuarioPorIdAsync(int id)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(u => u.Id_Usuario == id);
+            return await _context.Usuarios.FirstOrDefaultAsync(u => u.id_usuario == id);
         }
 
         // Agregar un nuevo usuario
@@ -74,10 +72,10 @@ namespace Mi_Negocio.Repositorios
         // Cambiar estado del usuario a activo
         public void DarAlta(int id)
         {
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.Id_Usuario == id);
-            if (usuario != null && usuario.Estado_Usuario == 0)
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.id_usuario == id);
+            if (usuario != null && usuario.estado_usuario == 0)
             {
-                usuario.Estado_Usuario = 1; // Cambiar a activo
+                usuario.estado_usuario = 1; // Cambiar a activo
                 _context.SaveChanges();
             }
         }
@@ -88,22 +86,24 @@ namespace Mi_Negocio.Repositorios
             var usuario = await ObtenerUsuarioPorIdAsync(id);
             if (usuario != null)
             {
-                usuario.Avatar = avatarPath;
+                usuario.avatar = avatarPath;
                 _context.Usuarios.Update(usuario);
                 await _context.SaveChangesAsync();
             }
         }
 
-public Usuario? ObtenerUsuarioLogin(string email, string password)
+public async Task<Usuario?> ObtenerUsuarioLoginAsync(string email, string password)
 {
 
     {
         // Buscar el usuario con el email y contraseña proporcionados
-        var usuario = _context.Usuarios
-            .FirstOrDefault(u => u.Email == email && u.Password == password);
+        var usuario = await _context.Usuarios
+            .FirstOrDefaultAsync(u => u.email == email && u.password == password);
 
         return usuario; // Retornar el usuario encontrado o null si no existe
+
     }
+    
 }
 
 
@@ -116,7 +116,7 @@ public async Task<int> EsIgualPasswordAsync(int id, string password)
     {
         // Verificar si existe un usuario con el ID y contraseña proporcionados
         var usuario = await _context.Usuarios
-            .FirstOrDefaultAsync(u => u.Id_Usuario == id && u.Password == password);
+            .FirstOrDefaultAsync(u => u.id_usuario == id && u.password == password);
 
         // Si el usuario existe, retornar 1; de lo contrario, -1
         return res = 1 ;
@@ -137,11 +137,11 @@ public async Task<int> UpdateClaveAsync(int id, string password)
 {
     try
     {
-        var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Id_Usuario == id);
+        var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.id_usuario == id);
 
         if (usuario != null)
         {
-            usuario.Password = password;
+            usuario.password = password;
             await _context.SaveChangesAsync();
             return 1; // Éxito
         }

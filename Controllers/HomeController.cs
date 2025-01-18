@@ -13,14 +13,16 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IConfiguration _configuration; 
+    private readonly RepositorioUsuarios _repositorioUsuarios;
    
-    public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+    public HomeController(ILogger<HomeController> logger, IConfiguration configuration, RepositorioUsuarios repositorioUsuarios)
     {
         _logger = logger;
         _configuration = configuration;
+        _repositorioUsuarios = repositorioUsuarios;
     }
 
-RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
+
 
 
     public IActionResult Index()
@@ -32,74 +34,70 @@ RepositorioUsuarios repositorioUsuarios = new RepositorioUsuarios();
     {
         return View();
     }
-  public async Task<IActionResult> Login(LoginView usuariologin)
+  // Método GET para mostrar la vista de login
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View(new LoginView()); // Retorna la vista vacía
+    }
+
+    // Método POST para procesar los datos de login
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginView usuariologin)
+    {
+
+
+        Console.WriteLine("Entro al Login   =   " + usuariologin.Email + usuariologin.Password);
+        try
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View();
-                }
-                else
-                {
-                    if (usuariologin == null)
-                    {
-                        usuariologin = new LoginView();
-                    }
-                    var Mensaje = "";
-                    
-                    RepositorioUsuarios ru = new RepositorioUsuarios();
-
-                    // Usamos _configuration para obtener el valor de "Salt"
-                    string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                        password: usuariologin.Password,
-                        salt: System.Text.Encoding.ASCII.GetBytes(_configuration["Salt"]),
-                        prf: KeyDerivationPrf.HMACSHA1,
-                        iterationCount: 1000,
-                        numBytesRequested: 256 / 8));
-
-                    var usuario = ru.ObtenerUsuarioLogin(usuariologin.Email, hashed);
-                    if (usuario == null || usuario.Password != hashed)
-                    {
-                        Mensaje = "El usuario o la contraseña son incorrectos";
-                        if (usuariologin.Password == "")
-                        {
-                            Mensaje = "";
-                        }
-
-                        ViewBag.Mensaje = Mensaje;
-                        return View();
-                    }
-
-                    var claims = new List<Claim>{
-
-                        new Claim(ClaimTypes.Name, usuario.ToString()),
-                        new Claim(ClaimTypes.PrimarySid, usuario.Id_Usuario.ToString()),
-                        new Claim(ClaimTypes.UserData, usuario.Avatar ?? ""),
-                        new Claim(ClaimTypes.Email, usuario.Email),
-                        new Claim(ClaimTypes.Role, usuario.RolNombre),
-                    };
-
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                    return RedirectToAction("Index", "Home");
-                }
+                return View(usuariologin); // Retorna la vista con los datos ingresados y errores de validación
             }
-            catch (Exception ex)
+
+            var mensaje = "";
+         Console.WriteLine("Entro al Login2   =   " + usuariologin.Email + usuariologin.Password);
+            // Generar el hash de la contraseña ingresada
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: usuariologin.Password,
+                salt: System.Text.Encoding.ASCII.GetBytes(_configuration["Salt"]),
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 1000,
+                numBytesRequested: 256 / 8));
+
+            // Validar las credenciales del usuario
+        var usuario = await _repositorioUsuarios.ObtenerUsuarioLoginAsync(usuariologin.Email, hashed);      
+
+         Console.WriteLine("Entro al Login4   =   " + usuario.email + usuario.password);   
+            if (usuario == null || usuario.password != hashed)
             {
-                ModelState.AddModelError("", ex.Message);
-                return View();
+                mensaje = "El usuario o la contraseña son incorrectos";
+                ViewBag.Mensaje = mensaje;
+                return View(usuariologin);
             }
-        }
-        public async Task<ActionResult> salir()
-        {
 
-            await HttpContext.SignOutAsync(
-               CookieAuthenticationDefaults.AuthenticationScheme);
+            // Crear los claims para el usuario autenticado
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, usuario.ToString()),
+                new Claim(ClaimTypes.PrimarySid, usuario.id_usuario.ToString()),
+                new Claim(ClaimTypes.UserData, usuario.avatar ?? ""),
+                new Claim(ClaimTypes.Email, usuario.email),
+                new Claim(ClaimTypes.Role, usuario.rolnombre),
+
+            };
+  
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
             return RedirectToAction("Index", "Home");
         }
-
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", ex.Message);
+            return View(usuariologin);
+        }
+    }
 }
 }
