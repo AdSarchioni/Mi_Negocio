@@ -9,7 +9,14 @@ using MySql.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+// Agregar soporte para sesiones
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración de la sesión
+    options.Cookie.HttpOnly = true; // Seguridad de la cookie
+    options.Cookie.IsEssential = true; // Obligatorio para cumplimiento de RGPD
+});
 // Agrega los servicios para controladores con vistas
 builder.Services.AddControllersWithViews();
 
@@ -54,6 +61,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession(); // Registrar el middleware de sesiones
 app.UseAuthentication();
 app.UseAuthorization();
 

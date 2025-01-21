@@ -1,7 +1,10 @@
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Mi_Negocio.Models;
 public class Direccion
 {
+    [Key]
     public int id_direccion { get; set; }
     public string calleDireccion { get; set; }
     public string ciudad { get; set; }

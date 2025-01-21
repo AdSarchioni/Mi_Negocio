@@ -64,6 +64,22 @@
   <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                         </li>
+
+ <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("SeleccionarProductos", "Carrito")">Productos</a>
+                    </li>
+     
+<li class="nav-item" ><a class="nav-link"  asp-controller="Carrito" asp-action="VerCarrito">Ver Carrito</a></li>
+<li class="nav-item"><a class="nav-link"  asp-controller="Carrito" asp-action="FinalizarPedido">Finalizar Pedido</a></li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("VerCarrito", "Carrito")">Ver2 Carrito</a>
+    </li>
+
+
+
+
+
+
                      <li class="nav-item ms-auto">
                                 <div class="dropdown">
                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink"

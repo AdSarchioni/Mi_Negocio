@@ -253,3 +253,11 @@ C:\Users\adsar\Documents\GitHub\Mi_Negocio\obj\Debug\net8.0\refint\Mi_Negocio.dl
 C:\Users\adsar\Documents\GitHub\Mi_Negocio\obj\Debug\net8.0\Mi_Negocio.pdb
 C:\Users\adsar\Documents\GitHub\Mi_Negocio\obj\Debug\net8.0\Mi_Negocio.genruntimeconfig.cache
 C:\Users\adsar\Documents\GitHub\Mi_Negocio\obj\Debug\net8.0\ref\Mi_Negocio.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\adsar\Documents\GitHub\Mi_Negocio\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
