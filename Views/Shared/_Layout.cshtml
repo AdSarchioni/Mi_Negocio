@@ -66,14 +66,18 @@
                         </li>
 
  <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("SeleccionarProductos", "Carrito")">Productos</a>
+                        <a class="nav-link" href="@Url.Action("SeleccionarProductos", "Carrito")">Comprar</a>
                     </li>
      
 <li class="nav-item" ><a class="nav-link"  asp-controller="Carrito" asp-action="VerCarrito">Ver Carrito</a></li>
-<li class="nav-item"><a class="nav-link"  asp-controller="Carrito" asp-action="FinalizarPedido">Finalizar Pedido</a></li>
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("VerCarrito", "Carrito")">Ver2 Carrito</a>
-    </li>
+
+   <li class="nav-item">
+    <a class="nav-link" asp-controller="Pedidos" asp-action="Index">
+        <i class="fas fa-list"></i> Pedidos
+    </a>
+</li>
+
+
 
 
 

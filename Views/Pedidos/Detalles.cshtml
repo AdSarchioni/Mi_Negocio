@@ -1,0 +1,41 @@
+@model Mi_Negocio.Models.Pedido
+
+<h1>Detalles del Pedido #@Model.pedidoId</h1>
+
+<p><strong>Usuario:</strong> @Model.usuarioId</p>
+<p><strong>Fecha del Pedido:</strong> @Model.fechaPedido.ToShortDateString()</p>
+<p><strong>Total:</strong> @Model.total.ToString("C")</p>
+<p><strong>Estado:</strong> 
+    @Model.estado switch
+    {
+        1 => "Recibidos",
+        2 => "En Proceso",
+        3 => "Enviados",
+        _ => "Desconocido"
+    }
+</p>
+
+<h2>Productos</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detalle in Model.Detallespedido)
+        {
+            <tr>
+                <td>@detalle.Producto.nombre</td>
+                <td>@detalle.cantidad</td>
+                <td>@detalle.precioUnitario.ToString("C")</td>
+                <td>@detalle.total.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" asp-controller="Pedidos" class="btn btn-primary">Volver a la Lista</a>

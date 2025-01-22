@@ -23,13 +23,13 @@ namespace Mi_Negocio.Models;
     public string? nombre { get; set; }
 
   [Required(ErrorMessage = "El DNI es obligatorio.")]
-    [RegularExpression(@"^\d{1,10}$", ErrorMessage = "El DNI debe contener solo números y un máximo de 11 dígitos.")]
+  
     public int dni { get; set; }
 
    [Required(ErrorMessage = "El teléfono es obligatorio.")]
     public string? telefono { get; set; }
     [Required(ErrorMessage = "El email es obligatorio.")]
-    [EmailAddress(ErrorMessage = "El email no tiene un formato válido.")]
+    
     public string? email { get; set; }
    
     public string? password { get; set; }
@@ -43,6 +43,7 @@ namespace Mi_Negocio.Models;
     public int rol { get; set; }
     [NotMapped]//Para EF
     public string rolnombre => rol > 0 ? ((enRoles)rol).ToString() : "";
+   
 
     public static IDictionary<int, string> ObtenerRoles()
     {
@@ -58,4 +59,5 @@ namespace Mi_Negocio.Models;
     {
         return $"{apellido},{nombre}-({id_usuario})";
     }
+
 }

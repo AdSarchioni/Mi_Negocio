@@ -18,8 +18,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\adsar\Documents\GitHub\Mi_Negocio
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Carrito/PedidoExitoso.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fycml0b1xQZWRpZG9FeGl0b3NvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Carrito/SeleccionarProductos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fycml0b1xTZWxlY2Npb25hclByb2R1Y3Rvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Carrito/VerCarrito.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fycml0b1xWZXJDYXJyaXRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Home/Index.cshtml]
@@ -36,6 +44,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Pedidos/Detalles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvc1xEZXRhbGxlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Pedidos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Productos/Crear.cshtml]

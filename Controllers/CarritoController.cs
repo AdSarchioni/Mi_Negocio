@@ -1,7 +1,9 @@
 using Mi_Negocio.Data;
 using Mi_Negocio.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 
 public class CarritoController : Controller
 {
@@ -21,9 +23,9 @@ public class CarritoController : Controller
 
     // Acción para agregar un producto al carrito
     [HttpPost]
-    public IActionResult AgregarProductoAlCarrito(int idProducto, int cantidad)
+    public IActionResult AgregarProductoAlCarrito(int productoId, int cantidad)
     {
-        var producto = _context.Productos.Find(idProducto);
+        var producto = _context.Productos.Find(productoId);
         if (producto == null)
         {
             return NotFound("Producto no encontrado.");
@@ -33,7 +35,7 @@ public class CarritoController : Controller
         var carrito = ObtenerCarrito();
 
         // Si el producto ya está en el carrito, aumentamos la cantidad
-        var detalleExistente = carrito.Items.FirstOrDefault(item => item.id_producto == idProducto);
+        var detalleExistente = carrito.Items.FirstOrDefault(item => item.productoId == productoId);
         if (detalleExistente != null)
         {
             detalleExistente.cantidad += cantidad;
@@ -43,8 +45,9 @@ public class CarritoController : Controller
             // Si no está en el carrito, lo agregamos
             carrito.Items.Add(new Detallespedido
             {
-                id_producto = idProducto,
-            
+                productoId = productoId,
+                nombre = producto.nombre,
+                imagen = producto.imagen,
                 cantidad = cantidad,
                 total = producto.precio * cantidad
             });
@@ -53,37 +56,71 @@ public class CarritoController : Controller
         // Guardamos el carrito en la sesión
         GuardarCarrito(carrito);
 
+// Log para inspeccionar los datos
+Console.WriteLine("Contenido del carrito:");
+foreach (var item in carrito.Items)
+{
+    Console.WriteLine($"Producto ID: {item.productoId},Nombre: {item.nombre}, Cantidad: {item.cantidad}, Total: {item.total}");
+}
+
+
+
         return RedirectToAction("SeleccionarProductos");
     }
 
     // Acción para finalizar la compra y guardar en Detallespedido
-   [HttpPost]
-public IActionResult FinalizarCompra(int idUsuario)
+[HttpPost]
+public IActionResult FinalizarCompra()
 {
-    var carrito = ObtenerCarrito();  // Obtener el carrito actual desde la sesión
-
-    if (!carrito.Items.Any())  // Verificar si el carrito está vacío
+    // Obtener el id_usuario desde las claims
+    var idUsuarioClaim = User.FindFirst(ClaimTypes.PrimarySid); // Usar PrimarySid como definido en las claims
+    if (idUsuarioClaim == null || !int.TryParse(idUsuarioClaim.Value, out int idUsuario))
     {
-        ModelState.AddModelError("", "El carrito está vacío.");
-        return RedirectToAction("SeleccionarProductos");  // Si el carrito está vacío, redirigir al usuario
+        // Si no se encuentra el claim o no es válido, redirigir con un mensaje de error
+        ModelState.AddModelError("", "No se pudo identificar al usuario.");
+        return RedirectToAction("SeleccionarProductos");
     }
 
-    // Guardar solo los detalles del pedido en la tabla Detallespedido
+    var carrito = ObtenerCarrito(); // Obtener el carrito actual desde la sesión
+
+    if (!carrito.Items.Any()) // Verificar si el carrito está vacío
+    {
+        ModelState.AddModelError("", "El carrito está vacío.");
+        return RedirectToAction("SeleccionarProductos"); // Si el carrito está vacío, redirigir al usuario
+    }
+
+    // Calcular el total del pedido sumando los totales de los productos en el carrito
+    decimal totalPedido = (decimal)carrito.Items.Sum(item => item.total);
+
+    // Crear el registro del pedido en la tabla Pedido
+    var pedido = new Pedido
+    {
+        usuarioId = idUsuario,
+        fechaPedido = DateTime.Now,
+        total = (double)totalPedido,
+        estado = 1 // Estado inicial (ejemplo: 1 = Pendiente)
+    };
+
+    _context.Pedidos.Add(pedido);
+    _context.SaveChanges(); // Guardar el pedido para generar el PedidoId
+
+    // Guardar los detalles del pedido en la tabla DetallePedido
     foreach (var item in carrito.Items)
     {
         var detallePedido = new Detallespedido
         {
-            id_producto = item.id_producto,  // Asignar el id del producto
-            cantidad = item.cantidad,  // Asignar la cantidad del producto
-            total = item.total,  // Asignar el total (precio * cantidad)
-            
+            pedidoId = pedido.pedidoId, // Relacionar con el PedidoId recién creado
+            productoId = item.productoId,
+            nombre = item.nombre,
+            cantidad = item.cantidad,
+            precioUnitario = item.precioUnitario, // Precio por unidad en el momento de la compra
+            total = item.total // Precio total para este producto (precioUnitario * cantidad)
         };
 
-        // Guardar el detalle del pedido en la base de datos
         _context.Detallespedido.Add(detallePedido);
     }
 
-    // Guardar los cambios en la base de datos
+    // Guardar los detalles del pedido en la base de datos
     _context.SaveChanges();
 
     // Vaciar el carrito después de finalizar la compra
@@ -91,8 +128,9 @@ public IActionResult FinalizarCompra(int idUsuario)
     GuardarCarrito(carrito);
 
     // Redirigir al usuario a la vista de "Pedido Exitoso"
-    return RedirectToAction("PedidoExitoso");
+    return RedirectToAction("PedidoExitoso", new { pedidoId = pedido.pedidoId });
 }
+
 
 
     // Métodos auxiliares para manejar el carrito en sesión
@@ -106,4 +144,60 @@ public IActionResult FinalizarCompra(int idUsuario)
     {
         HttpContext.Session.SetObject("Carrito", carrito);
     }
+public IActionResult PedidoExitoso(int pedidoId)
+{
+    var pedido = _context.Pedidos
+        .Include(p => p.Detallespedido) // Cargar los detalles del pedido
+        .ThenInclude(dp => dp.Producto) // Cargar la información del producto
+        .FirstOrDefault(p => p.pedidoId == pedidoId);
+
+    if (pedido == null)
+    {
+        return NotFound("El pedido no existe.");
+    }
+
+    return View(pedido);
+}
+
+public IActionResult VerCarrito()
+{
+    // Obtener el carrito desde la sesión
+    var carrito = ObtenerCarrito();
+
+    // Convertir el objeto Carrito en CarritoViewModel
+    var model = new CarritoViewModel
+    {
+        Items = carrito.Items.Select(item => new DetalleCarrito
+        {
+            productoId = item.productoId, 
+            nombre = item.nombre,
+            imagen = item.imagen,
+            cantidad = item.cantidad,
+            precioUnitario = item.precioUnitario,
+            total = item.total
+        }).ToList()
+    };
+
+    return View(model); // Pasar el CarritoViewModel a la vista
+}
+
+
+[HttpPost]
+public IActionResult EliminarDelCarrito(int idProducto)
+{
+    // Obtener el carrito desde la sesión
+    var carrito = ObtenerCarrito();
+
+    // Buscar el producto en el carrito
+    var item = carrito.Items.FirstOrDefault(i => i.productoId == idProducto);
+    if (item != null)
+    {
+        carrito.Items.Remove(item); // Eliminar el producto
+        GuardarCarrito(carrito);    // Guardar los cambios
+    }
+
+    return RedirectToAction("VerCarrito"); // Redirigir al carrito actualizado
+}
+
+
 }

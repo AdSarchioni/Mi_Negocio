@@ -1,0 +1,29 @@
+@model Pedido
+
+<h2>¡Pedido Exitoso!</h2>
+<p>Pedido realizado el @Model.fechaPedido.ToString("dd/MM/yyyy HH:mm")</p>
+<p>Total: @Model.total.ToString("C")</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var detalle in Model.Detallespedido)
+        {
+            <tr>
+                <td>@detalle.Producto.nombre</td>
+                <td>@detalle.Producto.descripcion</td>
+                <td>@detalle.cantidad</td>
+                <td>@detalle.precioUnitario.ToString("C")</td>
+                <td>@detalle.total.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

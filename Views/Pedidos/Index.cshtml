@@ -1,0 +1,57 @@
+@model Mi_Negocio.Models.PedidosIndexViewModel
+
+<h1>Listado de Pedidos</h1>
+
+<!-- Filtro por Estado -->
+<form method="get" asp-controller="Pedidos" asp-action="Index">
+    <div class="form-group">
+        <label asp-for="EstadoSeleccionado" class="control-label">Filtrar por Estado</label>
+        <select asp-for="EstadoSeleccionado" class="form-control">
+            <option value="Todos" selected="@("Todos" == Model.EstadoSeleccionado)">Todos</option>
+            <option value="Recibidos" selected="@("Recibidos" == Model.EstadoSeleccionado)">Recibidos</option>
+            <option value="En Proceso" selected="@("En Proceso" == Model.EstadoSeleccionado)">En Proceso</option>
+            <option value="Enviados" selected="@("Enviados" == Model.EstadoSeleccionado)">Enviados</option>
+        </select>
+        <span asp-validation-for="EstadoSeleccionado" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+</form>
+
+<!-- Tabla de Pedidos -->
+<table class="table">
+    <thead>
+        <tr>
+            <th># Pedido</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pedido in Model.Pedidos)
+        {
+            <tr>
+                <td>@pedido.pedidoId</td>
+                <td>@pedido.usuarioId</td>
+                <td>@pedido.fechaPedido.ToShortDateString()</td>
+                <td>@pedido.total.ToString("C")</td>
+                <td>
+                    @pedido.estado switch
+                    {
+                        1 => "Recibidos",
+                        2 => "En Proceso",
+                        3 => "Enviados",
+                        _ => "Desconocido"
+                    }
+                </td>
+                <td>
+                    <a asp-action="Detalles" asp-controller="Pedidos" asp-route-id="@pedido.pedidoId" class="btn btn-info">Ver Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

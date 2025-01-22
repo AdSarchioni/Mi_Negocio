@@ -1,0 +1,65 @@
+@model CarritoViewModel
+
+@{
+    ViewData["Title"] = "Carrito de Compras";
+}
+
+<h1>Carrito de Compras</h1>
+
+@if (!Model.Items.Any())
+{
+    <p>@ViewBag.Mensaje</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Total</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.productoId</td>
+                    <td>@item.nombre</td>
+                    <td>@item.cantidad</td>
+                    <td>@item.precioUnitario.ToString("C")</td>
+                    <td>@item.total.ToString("C")</td>
+                                <td>
+                    @if (!string.IsNullOrEmpty(item.imagen))
+                    {
+                        <img src="@Url.Content($"~{item.imagen}")" alt="Imagen del producto" width="100" class="img-thumbnail" />
+                    }
+                    else
+                    {
+                        <span>Sin imagen</span>
+                    }
+                </td>
+                    <td>
+                        <!-- Opción para eliminar un producto del carrito -->
+                        <form asp-action="EliminarDelCarrito" asp-controller="Carrito" method="post">
+                            <input type="hidden" name="idProducto" value="@item.productoId" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-end">
+        <p><strong>Total del carrito:</strong> @Model.Items.Sum(i => i.total).ToString("C")</p>
+        <!-- Botón para finalizar la compra -->
+<form method="post" action="@Url.Action("FinalizarCompra", "Carrito")">
+    <input type="hidden" name="idUsuario" value="1" /> <!-- Aquí deberías poner el id del usuario actual -->
+    <button type="submit" class="btn btn-success">Finalizar Compra</button>
+</form>
+    </div>
+}

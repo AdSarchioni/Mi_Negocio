@@ -8,6 +8,7 @@
             <th>Producto</th>
             <th>Descripción</th>
             <th>Precio</th>
+            <th>Imagen</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -18,9 +19,19 @@
                 <td>@producto.nombre</td>
                 <td>@producto.descripcion</td>
                 <td>@producto.precio</td>
+                    <td>
+                    @if (!string.IsNullOrEmpty(producto.imagen))
+                    {
+                        <img src="@Url.Content($"~{producto.imagen}")" alt="Imagen del producto" width="100" class="img-thumbnail" />
+                    }
+                    else
+                    {
+                        <span>Sin imagen</span>
+                    }
+                </td>
                 <td>
                     <form method="post" action="@Url.Action("AgregarProductoAlCarrito", "Carrito")">
-                        <input type="hidden" name="idProducto" value="@producto.id_producto" />
+                        <input type="hidden" name="productoId" value="@producto.id_producto" />
                         <input type="number" name="cantidad" value="1" min="1" />
                         <button type="submit" class="btn btn-primary">Agregar al carrito</button>
                     </form>

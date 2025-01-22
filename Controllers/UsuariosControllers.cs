@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace Mi_Negocio.Controllers
 {
@@ -37,13 +38,21 @@ namespace Mi_Negocio.Controllers
         }
 
         // Crear usuario - POST
-     [HttpPost]
+ [HttpPost]
 public async Task<IActionResult> Crear(Usuario usuario)
 {
+
+
+ 
+
+
+
     if (ModelState.IsValid)
     {
+        Console.WriteLine("Entro al Crear2   =   " + usuario.email + usuario.password);
         try
         {
+            Console.WriteLine("Entro al Crear3   =   " + usuario.email + usuario.password);
             // Hashear la contraseña
             string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: usuario.password,
@@ -63,7 +72,7 @@ public async Task<IActionResult> Crear(Usuario usuario)
             {
                 usuario.avatar = "/avatars/avatar_0.png"; // Avatar predeterminado
             }
-
+ Console.WriteLine("Entro al Crear4   =   " + usuario.email + usuario.password);
             // Guardar el usuario en la base de datos
             await _repositorio.AgregarUsuarioAsync(usuario);
 
@@ -74,7 +83,26 @@ public async Task<IActionResult> Crear(Usuario usuario)
             // Manejar errores
             ModelState.AddModelError("", "Ocurrió un error al crear el usuario: " + ex.Message);
         }
+        if (!ModelState.IsValid)
+{
+    foreach (var modelState in ModelState)
+    {
+        foreach (var error in modelState.Value.Errors)
+        {
+            Console.WriteLine($"Error en {modelState.Key}: {error.ErrorMessage}");
+        }
     }
+}
+    }
+     if (!ModelState.IsValid)
+{
+    foreach (var modelState in ModelState)
+    {
+        foreach (var error in modelState.Value.Errors)
+        {
+            Console.WriteLine($"Error en {modelState.Key}: {error.ErrorMessage}");
+        }
+    }}
 
     // Si llega aquí, algo falló
     return View(usuario);
@@ -147,10 +175,19 @@ public async Task<IActionResult> Editar(Usuario usuario)
             {
                 usuarioExistente.nombre = usuario.nombre;
             }
+            if (!string.IsNullOrEmpty(usuario.apellido))
+            {
+                usuarioExistente.apellido = usuario.apellido;
+            } 
+            if (usuario.rol != null)
+            {
+                usuarioExistente.rol = usuario.rol;
+            }
             if (!string.IsNullOrEmpty(usuario.email))
             {
                 usuarioExistente.email = usuario.email;
             }
+
             if (!string.IsNullOrEmpty(usuario.password))
             {
                 // Hashear la nueva contraseña si se proporciona

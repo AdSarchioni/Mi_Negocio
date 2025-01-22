@@ -6,10 +6,11 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form  method="post" enctype="multipart/form-data">
+<form asp-action="Crear" method="post" enctype="multipart/form-data">
+   
     <div class="form-group">
         <label for="apellido">Apellido</label>
-        <input type="text" class="form-control" id="apellido" name="pellido" value="@Model.apellido" />
+        <input type="text" class="form-control" id="apellido" name="apellido" value="@Model.apellido" />
         @Html.ValidationMessageFor(model => model.apellido, "", new { @class = "text-danger" })
     </div>
 
