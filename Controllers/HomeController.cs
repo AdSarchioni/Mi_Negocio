@@ -80,7 +80,7 @@ public class HomeController : Controller
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, usuario.ToString()),
-                new Claim(ClaimTypes.PrimarySid, usuario.id_usuario.ToString()),
+                new Claim(ClaimTypes.PrimarySid, usuario.usuarioId.ToString()),
                 new Claim(ClaimTypes.UserData, usuario.avatar ?? ""),
                 new Claim(ClaimTypes.Email, usuario.email),
                 new Claim(ClaimTypes.Role, usuario.rolnombre),

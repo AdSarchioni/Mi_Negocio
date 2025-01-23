@@ -13,7 +13,7 @@ public class Carrito
 
     public void AgregarProducto(Producto producto, int cantidad)
     {
-        var detalleExistente = Items.FirstOrDefault(item => item.productoId == producto.id_producto);
+        var detalleExistente = Items.FirstOrDefault(item => item.productoId == producto.productoId);
         if (detalleExistente != null)
         {
             detalleExistente.cantidad += cantidad;
@@ -24,7 +24,7 @@ public class Carrito
             Items.Add(new Detallespedido
             {
             
-                productoId = producto.id_producto,
+                productoId = producto.productoId,
                 cantidad = cantidad,
                 total = producto.precio * cantidad
             });

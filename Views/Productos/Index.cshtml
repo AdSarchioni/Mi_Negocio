@@ -45,18 +45,18 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Editar" asp-route-id="@producto.id_producto" class="btn btn-warning">Editar</a>
+                    <a asp-action="Editar" asp-route-id="@producto.productoId" class="btn btn-warning">Editar</a>
                     
                     @if (producto.estado == 0)
                     {
-                        <form asp-action="Alta" asp-route-id="@producto.id_producto" method="post" style="display:inline;">
+                        <form asp-action="Alta" asp-route-id="@producto.productoId" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-success" onclick="return confirm('¿Está seguro de que desea dar de alta este producto?');">
                                 Alta
                             </button>
                         </form>
                     }
                     
-                    <form asp-action="Eliminar" asp-route-id="@producto.id_producto" method="post" style="display:inline;">
+                    <form asp-action="Eliminar" asp-route-id="@producto.productoId" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de que desea eliminar este producto?');">Eliminar</button>
                     </form>
                 </td>

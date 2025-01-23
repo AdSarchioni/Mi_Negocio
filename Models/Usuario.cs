@@ -14,7 +14,7 @@ namespace Mi_Negocio.Models;
     public class Usuario
    {
    [Key]
-    public int id_usuario { get; set; }
+    public int usuarioId { get; set; }
 
    [Required(ErrorMessage = "El apellido es obligatorio.")]
     public string? apellido { get; set; }
@@ -57,7 +57,7 @@ namespace Mi_Negocio.Models;
     }
     public override string ToString()
     {
-        return $"{apellido},{nombre}-({id_usuario})";
+        return $"{apellido},{nombre}-({usuarioId})";
     }
 
 }

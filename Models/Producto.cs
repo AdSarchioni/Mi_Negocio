@@ -6,7 +6,7 @@ namespace Mi_Negocio.Models
     public class Producto
     {
     [Key]   
-    public int id_producto { get; set; }
+    public int productoId { get; set; }
     public string? nombre { get; set; }
     public string? descripcion { get; set; }
     public double precio { get; set; }

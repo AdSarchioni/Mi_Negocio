@@ -26,7 +26,7 @@ namespace Mi_Negocio.Repositorios
            // Método para obtener un producto por ID
         public async Task<Producto> GetProductoByIdAsync(int id)
         {
-            return await _context.Productos.FirstOrDefaultAsync(p => p.id_producto == id);
+            return await _context.Productos.FirstOrDefaultAsync(p => p.productoId == id);
         }
 
         // Método para agregar un nuevo producto
@@ -72,11 +72,11 @@ public bool EditarProducto(Producto producto)
     // Obtener un producto por ID (para cargar en el formulario de edición)
     public Producto? ObtenerProductoPorId(int id)
     {
-        return _context.Productos.FirstOrDefault(p => p.id_producto == id);
+        return _context.Productos.FirstOrDefault(p => p.productoId == id);
     }
   public void DarAlta(int id)
     {
-        var producto = _context.Productos.FirstOrDefault(p => p.id_producto == id);
+        var producto = _context.Productos.FirstOrDefault(p => p.productoId == id);
         if (producto != null && producto.estado == 0)
         {
             producto.estado = 1; // Cambiar el estado a activo

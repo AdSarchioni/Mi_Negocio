@@ -24,7 +24,7 @@
         @foreach (var usuario in Model)
         {
             <tr>
-                <td>@usuario.id_usuario</td>
+                <td>@usuario.usuarioId</td>
                 <td>@usuario.apellido</td>
                 <td>@usuario.nombre</td>
                 <td>@usuario.email</td>
@@ -42,8 +42,8 @@
                 </td>
 
                 <td>
-                    <a href="@Url.Action("Editar", new { id = usuario.id_usuario })" class="btn btn-primary">Editar</a>
-                    <form method="post" action="@Url.Action("Eliminar", new { id = usuario.id_usuario })" style="display:inline;">
+                    <a href="@Url.Action("Editar", new { id = usuario.usuarioId })" class="btn btn-primary">Editar</a>
+                    <form method="post" action="@Url.Action("Eliminar", new { id = usuario.usuarioId })" style="display:inline;">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>

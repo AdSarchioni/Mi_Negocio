@@ -126,7 +126,7 @@ public async Task<IActionResult> Editar(Usuario usuario)
         try
         {
             // Recuperar el usuario actual desde la base de datos
-            var usuarioExistente = await _repositorio.ObtenerUsuarioPorIdAsync(usuario.id_usuario);
+            var usuarioExistente = await _repositorio.ObtenerUsuarioPorIdAsync(usuario.usuarioId);
             if (usuarioExistente == null)
             {
                 ModelState.AddModelError("", "El usuario no existe.");

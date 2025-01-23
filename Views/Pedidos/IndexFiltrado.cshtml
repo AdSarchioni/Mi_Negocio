@@ -1,23 +1,32 @@
 @model Mi_Negocio.Models.PedidosIndexViewModel
 
-<h1>Listado de Pedidos</h1>
+<h1>Listado de Pedidos (Filtrado por Usuario y Estado)</h1>
 
-<!-- Filtro por Estado -->
-<form method="post" asp-controller="Pedidos" asp-action="Filtrar">
+<form method="post" asp-controller="Pedidos" asp-action="FiltrarPorUsuarioYPedido">
     <div class="form-group">
-        <label asp-for="EstadoSeleccionado" class="control-label">Filtrar por Estado</label>
+        <label for="EstadoSeleccionado">Filtrar por Estado</label>
         <select asp-for="EstadoSeleccionado" class="form-control">
             <option value="Todos">Todos</option>
             <option value="Recibidos">Recibidos</option>
             <option value="En Proceso">En Proceso</option>
             <option value="Enviados">Enviados</option>
         </select>
-        <span asp-validation-for="EstadoSeleccionado" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+
+    <div class="form-group">
+        <label for="UsuarioIdSeleccionado">Filtrar por Usuario</label>
+        <select asp-for="UsuarioIdSeleccionado" class="form-control">
+            <option value="">Todos</option>
+            @foreach (var usuario in Model.Usuarios)
+            {
+                <option value="@usuario.usuarioId">@usuario.NombreCompleto</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
 </form>
 
-<!-- Tabla de Pedidos -->
 <table class="table">
     <thead>
         <tr>
@@ -25,6 +34,7 @@
             <th>Usuario</th>
             <th>Fecha</th>
             <th>Total</th>
+            <th>Estado</th>
             <th>Estado</th>
             <th>Detalles</th>
         </tr>
@@ -34,7 +44,7 @@
         {
             <tr>
                 <td>@pedido.pedidoId</td>
-                <td>@pedido.usuarioId</td>
+                <td>@pedido.Usuario.nombre @pedido.Usuario.apellido</td>
                 <td>@pedido.fechaPedido.ToShortDateString()</td>
                 <td>@pedido.total.ToString("C")</td>
                 <td>
@@ -43,6 +53,12 @@
                         @(pedido.estado == 1 ? "Recibidos" : pedido.estado == 2 ? "En Proceso" : pedido.estado == 3 ? "Enviados" : "Desconocido")
                     </div>
                 </td>
+               
+                <td>
+                    @(pedido.estado == 1 ? "Recibidos" : 
+                      pedido.estado == 2 ? "En Proceso" : 
+                      pedido.estado == 3 ? "Enviados" : "Desconocido")
+                </td>
                 <td>
                     <a asp-action="Detalles" asp-controller="Pedidos" asp-route-id="@pedido.pedidoId" class="btn btn-info">Ver Detalles</a>
                 </td>
@@ -50,7 +66,6 @@
         }
     </tbody>
 </table>
-
 <!-- Estilos CSS -->
 <style>
     /* Contenedor del estado */
@@ -85,4 +100,3 @@
         background-color: gray;
     }
 </style>
-

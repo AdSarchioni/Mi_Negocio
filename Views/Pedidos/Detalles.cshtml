@@ -5,15 +5,20 @@
 <p><strong>Usuario:</strong> @Model.usuarioId</p>
 <p><strong>Fecha del Pedido:</strong> @Model.fechaPedido.ToShortDateString()</p>
 <p><strong>Total:</strong> @Model.total.ToString("C")</p>
-<p><strong>Estado:</strong> 
-    @Model.estado switch
-    {
-        1 => "Recibidos",
-        2 => "En Proceso",
-        3 => "Enviados",
-        _ => "Desconocido"
-    }
-</p>
+
+<!-- Formulario para actualizar el estado -->
+<form method="post" asp-action="ActualizarEstado" asp-controller="Pedidos">
+    <input type="hidden" asp-for="pedidoId" />
+    <div class="form-group">
+        <label for="estado">Estado del Pedido:</label>
+        <select asp-for="estado" class="form-control">
+            <option value="1" selected="@(Model.estado == 1)">Recibidos</option>
+            <option value="2" selected="@(Model.estado == 2)">En Proceso</option>
+            <option value="3" selected="@(Model.estado == 3)">Enviados</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Actualizar Estado</button>
+</form>
 
 <h2>Productos</h2>
 <table class="table">
@@ -39,3 +44,4 @@
 </table>
 
 <a asp-action="Index" asp-controller="Pedidos" class="btn btn-primary">Volver a la Lista</a>
+

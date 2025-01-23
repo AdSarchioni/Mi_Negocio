@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     <form method="post" action="@Url.Action("AgregarProductoAlCarrito", "Carrito")">
-                        <input type="hidden" name="productoId" value="@producto.id_producto" />
+                        <input type="hidden" name="productoId" value="@producto.productoId" />
                         <input type="number" name="cantidad" value="1" min="1" />
                         <button type="submit" class="btn btn-primary">Agregar al carrito</button>
                     </form>
