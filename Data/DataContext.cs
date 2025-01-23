@@ -12,7 +12,7 @@ namespace Mi_Negocio.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<Detallespedido> Detallespedido { get; set; }
-       
+        public DbSet<Direccion> Direcciones { get; set; }
 
     }
 }

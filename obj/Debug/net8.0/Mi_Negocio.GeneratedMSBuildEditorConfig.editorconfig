@@ -30,6 +30,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fycml0b1xWZXJDYXJyaXRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Direcciones/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlyZWNjaW9uZXNcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Direcciones/Detalles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlyZWNjaW9uZXNcRGV0YWxsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Direcciones/Editar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlyZWNjaW9uZXNcRWRpdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Direcciones/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlyZWNjaW9uZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -68,6 +84,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Productos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Shared/DisplayTemplates/Estado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXERpc3BsYXlUZW1wbGF0ZXNcRXN0YWRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Shared/Error.cshtml]

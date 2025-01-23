@@ -1,0 +1,67 @@
+@model Mi_Negocio.Models.Direccion
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Editar</h1>
+
+<h4>Direccion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Editar">
+
+              <div class="form-group">
+                <label asp-for="direccionId" class="control-label"></label>
+                <input asp-for="direccionId" class="form-control" />
+                <span asp-validation-for="direccionId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="calleDireccion" class="control-label"></label>
+                <input asp-for="calleDireccion" class="form-control" />
+                <span asp-validation-for="calleDireccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ciudad" class="control-label"></label>
+                <input asp-for="ciudad" class="form-control" />
+                <span asp-validation-for="ciudad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="provincia" class="control-label"></label>
+                <input asp-for="provincia" class="form-control" />
+                <span asp-validation-for="provincia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="codigoPostal" class="control-label"></label>
+                <input asp-for="codigoPostal" class="form-control" />
+                <span asp-validation-for="codigoPostal" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label asp-for="usuarioId" class="control-label"></label>
+                <input asp-for="usuarioId" class="form-control" />
+                <span asp-validation-for="usuarioId" class="text-danger"></span>
+            </div>
+ <!-- #r--> <div class="form-group">
+                <label asp-for="estado" class="control-label"></label>
+                <input asp-for="estado" class="form-control" />
+                <span asp-validation-for="estado" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Editar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
