@@ -1,20 +1,19 @@
 @model Mi_Negocio.Models.Direccion
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Editar Dirección";
 }
 
-<h1>Editar</h1>
+<h1>Editar Dirección</h1>
 
-<h4>Direccion</h4>
+<h4>Dirección</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Editar">
-
-              <div class="form-group">
+            <div class="form-group">
                 <label asp-for="direccionId" class="control-label"></label>
-                <input asp-for="direccionId" class="form-control" />
+                <input asp-for="direccionId" class="form-control" readonly />
                 <span asp-validation-for="direccionId" class="text-danger"></span>
             </div>
 
@@ -23,33 +22,63 @@
                 <input asp-for="calleDireccion" class="form-control" />
                 <span asp-validation-for="calleDireccion" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="ciudad" class="control-label"></label>
                 <input asp-for="ciudad" class="form-control" />
                 <span asp-validation-for="ciudad" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="provincia" class="control-label"></label>
                 <input asp-for="provincia" class="form-control" />
                 <span asp-validation-for="provincia" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="codigoPostal" class="control-label"></label>
                 <input asp-for="codigoPostal" class="form-control" />
                 <span asp-validation-for="codigoPostal" class="text-danger"></span>
             </div>
-              <div class="form-group">
-                <label asp-for="usuarioId" class="control-label"></label>
-                <input asp-for="usuarioId" class="form-control" />
+
+            <div class="form-group">
+                <label asp-for="usuarioId" class="control-label">ID del Usuario</label>
+                <input asp-for="usuarioId" class="form-control" readonly />
                 <span asp-validation-for="usuarioId" class="text-danger"></span>
             </div>
- <!-- #r--> <div class="form-group">
-                <label asp-for="estado" class="control-label"></label>
-                <input asp-for="estado" class="form-control" />
+
+            <div class="form-group">
+                <label asp-for="estado" class="control-label">Estado</label>
+                <select asp-for="estado" class="form-control">
+                    <option value="1" selected>Activo</option>
+                    <option value="0">Inactivo</option>
+                </select>
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Editar">
+
+            <!-- Otros campos de la dirección -->
+
+            <div class="form-group">
+                <label class="control-label">Nombre del Usuario</label>
+                <input value="@ViewBag.NombreUsuario" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Apellido del Usuario</label>
+                <input value="@ViewBag.ApellidoUsuario" class="form-control" readonly />
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Editar" class="btn btn-primary" />
@@ -57,10 +86,10 @@
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

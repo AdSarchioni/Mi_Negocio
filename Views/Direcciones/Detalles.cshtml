@@ -1,65 +1,41 @@
-@model Mi_Negocio.Models.Direccion
+@model Mi_Negocio.Models.DireccionConUsuario
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Detalles</h1>
+<h1>Detalles de la Dirección</h1>
 
-<h4>Direccion</h4>
+<h4>Dirección</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Detalles">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Calle</dt>
+            <dd class="col-sm-8">@Model.Direccion.calleDireccion</dd>
 
-              <div class="form-group">
-                <label asp-for="direccionId" class="control-label"></label>
-                <input asp-for="direccionId" class="form-control" />
-                <span asp-validation-for="direccionId" class="text-danger"></span>
-            </div>
+            <dt class="col-sm-4">Ciudad</dt>
+            <dd class="col-sm-8">@Model.Direccion.ciudad</dd>
 
-            <div class="form-group">
-                <label asp-for="calleDireccion" class="control-label"></label>
-                <input asp-for="calleDireccion" class="form-control" />
-                <span asp-validation-for="calleDireccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ciudad" class="control-label"></label>
-                <input asp-for="ciudad" class="form-control" />
-                <span asp-validation-for="ciudad" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="provincia" class="control-label"></label>
-                <input asp-for="provincia" class="form-control" />
-                <span asp-validation-for="provincia" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="codigoPostal" class="control-label"></label>
-                <input asp-for="codigoPostal" class="form-control" />
-                <span asp-validation-for="codigoPostal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="usuarioId" class="control-label"></label>
-                <input asp-for="usuarioId" class="form-control" />
-                <span asp-validation-for="usuarioId" class="text-danger"></span>
-            </div>
- <div class="form-group">
-                <label asp-for="Usuario.nombre" class="control-label"></label>
-                <input asp-for="Usuario.nombre" class="form-control" />
-                <span asp-validation-for="Usuario.nombre" class="text-danger"></span>
-            </div>
+            <dt class="col-sm-4">Provincia</dt>
+            <dd class="col-sm-8">@Model.Direccion.provincia</dd>
 
-            <div class="form-group">
-                <input type="submit" value="Detalles" class="btn btn-primary" />
-            </div>
-        </form>
+            <dt class="col-sm-4">Código Postal</dt>
+            <dd class="col-sm-8">@Model.Direccion.codigoPostal</dd>
+
+ <!-- #re--><dt class="col-sm-4">Id del Usuario</dt>
+            <dd class="col-sm-8">@Model.Direccion.usuarioId</dd>
+
+            <dt class="col-sm-4">Nombre del Usuario</dt>
+            <dd class="col-sm-8">@Model.NombreUsuario</dd>
+
+            <dt class="col-sm-4">Apellido del Usuario</dt>
+            <dd class="col-sm-8">@Model.ApellidoUsuario</dd>
+        </dl>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a la Lista</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
