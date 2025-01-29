@@ -15,11 +15,24 @@ public class CarritoController : Controller
     }
 
     // Acción para mostrar todos los productos disponibles
-    public IActionResult SeleccionarProductos()
-    {
-        var productos = _context.Productos.ToList(); // Obtienes todos los productos
-        return View(productos);
-    }
+public IActionResult SeleccionarProductos(int? direccionId)
+{
+    var productos = _context.Productos.ToList(); // Lista de productos
+
+    // Obtener las direcciones del usuario actual
+    var idUsuario = User.FindFirstValue(ClaimTypes.PrimarySid);
+    var direcciones = _context.Direcciones
+        .Where(d => d.usuarioId == int.Parse(idUsuario))
+        .ToList();
+
+    // Si se pasó un direccionId, asignarlo al ViewBag
+    ViewBag.SelectedDireccionId = direccionId ?? direcciones.FirstOrDefault()?.direccionId;
+
+    ViewBag.Direcciones = direcciones; // Pasar las direcciones a la vista
+
+    return View(productos);
+}
+
 
     // Acción para agregar un producto al carrito
     [HttpPost]
@@ -70,8 +83,11 @@ foreach (var item in carrito.Items)
 
     // Acción para finalizar la compra y guardar en Detallespedido
 [HttpPost]
-public IActionResult FinalizarCompra()
+public IActionResult FinalizarCompra(int direccionId)
 {
+
+
+    
     // Obtener el id_usuario desde las claims
     var idUsuarioClaim = User.FindFirst(ClaimTypes.PrimarySid); // Usar PrimarySid como definido en las claims
     if (idUsuarioClaim == null || !int.TryParse(idUsuarioClaim.Value, out int idUsuario))
@@ -89,6 +105,14 @@ public IActionResult FinalizarCompra()
         return RedirectToAction("SeleccionarProductos"); // Si el carrito está vacío, redirigir al usuario
     }
 
+    // Validar que la dirección seleccionada pertenece al usuario actual
+    var direccion = _context.Direcciones.FirstOrDefault(d => d.direccionId == direccionId && d.usuarioId == idUsuario);
+    if (direccion == null)
+    {
+        ModelState.AddModelError("", "La dirección seleccionada no es válida.");
+        return RedirectToAction("SeleccionarProductos");
+    }
+
     // Calcular el total del pedido sumando los totales de los productos en el carrito
     decimal totalPedido = (decimal)carrito.Items.Sum(item => item.total);
 
@@ -98,7 +122,8 @@ public IActionResult FinalizarCompra()
         usuarioId = idUsuario,
         fechaPedido = DateTime.Now,
         total = (double)totalPedido,
-        estado = 1 // Estado inicial (ejemplo: 1 = Pendiente)
+        estado = 1, // Estado inicial (ejemplo: 1 = Pendiente)
+        direccionId = direccionId // Guardar la dirección seleccionada
     };
 
     _context.Pedidos.Add(pedido);
@@ -156,8 +181,16 @@ public IActionResult PedidoExitoso(int pedidoId)
         return NotFound("El pedido no existe.");
     }
 
+    // Obtener la dirección asociada al pedido
+    var direccion = _context.Direcciones
+        .FirstOrDefault(d => d.direccionId == pedido.direccionId);
+
+    // Pasar la dirección a través del ViewBag
+    ViewBag.Direccion = direccion;
+
     return View(pedido);
 }
+
 
 public IActionResult VerCarrito()
 {

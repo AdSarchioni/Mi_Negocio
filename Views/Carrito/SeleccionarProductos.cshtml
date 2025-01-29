@@ -2,6 +2,7 @@
 
 <h2>Seleccionar Productos</h2>
 
+<!-- Tabla de productos -->
 <table class="table">
     <thead>
         <tr>
@@ -19,7 +20,7 @@
                 <td>@producto.nombre</td>
                 <td>@producto.descripcion</td>
                 <td>@producto.precio</td>
-                    <td>
+                <td>
                     @if (!string.IsNullOrEmpty(producto.imagen))
                     {
                         <img src="@Url.Content($"~{producto.imagen}")" alt="Imagen del producto" width="100" class="img-thumbnail" />
@@ -28,11 +29,13 @@
                     {
                         <span>Sin imagen</span>
                     }
+                    }
                 </td>
                 <td>
+                    <!-- Formulario para agregar al carrito -->
                     <form method="post" action="@Url.Action("AgregarProductoAlCarrito", "Carrito")">
                         <input type="hidden" name="productoId" value="@producto.productoId" />
-                        <input type="number" name="cantidad" value="1" min="1" />
+                        <input type="number" name="cantidad" value="1" min="1" class="form-control" />
                         <button type="submit" class="btn btn-primary">Agregar al carrito</button>
                     </form>
                 </td>
@@ -41,8 +44,40 @@
     </tbody>
 </table>
 
-<!-- Botón para finalizar la compra -->
+<!-- Formulario para finalizar la compra -->
 <form method="post" action="@Url.Action("FinalizarCompra", "Carrito")">
-    <input type="hidden" name="idUsuario" value="1" /> <!-- Aquí deberías poner el id del usuario actual -->
-    <button type="submit" class="btn btn-success">Finalizar Compra</button>
+   <!-- Selector de direcciones -->
+<div class="form-group">
+    <label for="direccionId">Seleccionar Dirección</label>
+    <select id="direccionId" name="direccionId" class="form-control" onchange="habilitarBoton()">
+        <option value="" selected disabled>-- Seleccione una dirección --</option>
+        @foreach (var direccion in ViewBag.Direcciones as List<Mi_Negocio.Models.Direccion>)
+        {
+            <option value="@direccion.direccionId">
+                @direccion.calleDireccion, @direccion.ciudad, @direccion.provincia
+            </option>
+        }
+    </select>
+</div>
+
+<!-- Botón para redirigir a gestión de direcciones -->
+<a asp-controller="Direcciones" asp-action="Index" class="btn btn-secondary">Gestionar Direcciones</a>
+
+<!-- Botón para finalizar la compra -->
+<button id="btnFinalizar" type="submit" class="btn btn-success" disabled>Finalizar Compra</button>
+
 </form>
+@section Scripts {
+    <script>
+        function habilitarBoton() {
+            const direccionSelect = document.getElementById("direccionId");
+            const botonFinalizar = document.getElementById("btnFinalizar");
+
+            if (direccionSelect.value) {
+                botonFinalizar.disabled = false;
+            } else {
+                botonFinalizar.disabled = true;
+            }
+        }
+    </script>
+}

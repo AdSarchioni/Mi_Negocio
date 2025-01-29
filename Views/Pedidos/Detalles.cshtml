@@ -5,7 +5,18 @@
 <p><strong>Usuario:</strong> @Model.usuarioId</p>
 <p><strong>Fecha del Pedido:</strong> @Model.fechaPedido.ToShortDateString()</p>
 <p><strong>Total:</strong> @Model.total.ToString("C")</p>
-
+@if (ViewBag.Direccion != null)
+{
+    <h3>Detalles de la Dirección</h3>
+    <p><strong>Calle:</strong> @ViewBag.Direccion.calleDireccion</p>
+    <p><strong>Ciudad:</strong> @ViewBag.Direccion.ciudad</p>
+    <p><strong>Provincia:</strong> @ViewBag.Direccion.provincia</p>
+    <p><strong>Código Postal:</strong> @ViewBag.Direccion.codigoPostal</p>
+}
+else
+{
+    <p><strong>Dirección:</strong> No disponible</p>
+}
 <!-- Formulario para actualizar el estado -->
 <form method="post" asp-action="ActualizarEstado" asp-controller="Pedidos">
     <input type="hidden" asp-for="pedidoId" />

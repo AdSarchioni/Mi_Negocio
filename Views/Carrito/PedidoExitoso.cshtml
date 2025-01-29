@@ -1,14 +1,29 @@
 @model Pedido
 
 <h2>¡Pedido Exitoso!</h2>
-<p>Pedido realizado el @Model.fechaPedido.ToString("dd/MM/yyyy HH:mm")</p>
-<p>Total: @Model.total.ToString("C")</p>
 
-<table>
+<p><strong>Fecha del Pedido:</strong> @Model.fechaPedido.ToString("dd/MM/yyyy HH:mm")</p>
+<p><strong>Total:</strong> @Model.total.ToString("C")</p>
+
+@if (ViewBag.Direccion != null)
+{
+    <h3>Detalles de la Dirección</h3>
+    <p><strong>Calle:</strong> @ViewBag.Direccion.calleDireccion</p>
+    <p><strong>Ciudad:</strong> @ViewBag.Direccion.ciudad</p>
+    <p><strong>Provincia:</strong> @ViewBag.Direccion.provincia</p>
+    <p><strong>Código Postal:</strong> @ViewBag.Direccion.codigoPostal</p>
+}
+else
+{
+    <p><strong>Dirección:</strong> No disponible</p>
+}
+
+<h3>Detalles del Pedido</h3>
+<table class="table">
     <thead>
         <tr>
             <th>Producto</th>
-            <th>Nombre</th>
+            <th>Descripción</th>
             <th>Cantidad</th>
             <th>Precio Unitario</th>
             <th>Total</th>
