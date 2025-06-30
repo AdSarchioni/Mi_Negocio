@@ -17,6 +17,8 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\adsar\Documents\GitHub\Mi_Negocio
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
 [C:/Users/adsar/Documents/GitHub/Mi_Negocio/Views/Carrito/PedidoExitoso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2Fycml0b1xQZWRpZG9FeGl0b3NvLmNzaHRtbA==
